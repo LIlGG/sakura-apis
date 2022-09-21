@@ -4,14 +4,49 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.lixingyong</groupId>
-    <artifactId>sakura-apis</artifactId>
+    <artifactId>sakura-apis-parent</artifactId>
+    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>sakura-apis</name>
 
-    <description>Halo Sakura 内置 API 聚合库</description>
+    <modules>
+        <module>sakura-api-core</module>
+        <module>sakura-api-common</module>
+        <module>sakura-api-netease</module>
+        <module>sakura-api-images</module>
+    </modules>
+
+    <description>Halo Sakura 主题内置 API 开源聚合库</description>
 
     <properties>
         <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <spring-boot.version>2.7.3</spring-boot.version>
     </properties>
 
+    <scm>
+        <url>https://github.com/LIlGG/sakura-apis</url>
+        <connection>scm:https://github.com/LIlGG/sakura-apis.git</connection>
+        <developerConnection>scm:https://github.com/LIlGG/sakura-apis.git</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>LIlGG</name>
+            <email>mail@e.lixingyong.com</email>
+            <url>https://lixingyong.com</url>
+        </developer>
+    </developers>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
