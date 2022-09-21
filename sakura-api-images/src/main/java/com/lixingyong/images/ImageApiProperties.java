@@ -1,4 +1,4 @@
-package com.lixingyong.api;
+package com.lixingyong.images;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
