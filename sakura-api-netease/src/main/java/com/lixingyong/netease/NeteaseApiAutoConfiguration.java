@@ -9,6 +9,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
@@ -25,6 +27,9 @@ import org.springframework.util.StringUtils;
  * @since 2022-09-21
  */
 @Configuration
+@ConditionalOnWebApplication
+@Import(NeteaseHttpConfiguration.class)
+@ConditionalOnProperty(prefix = "api.netease", value = "enable", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(NeteaseApiProperties.class)
 public class NeteaseApiAutoConfiguration {
 
@@ -32,8 +37,6 @@ public class NeteaseApiAutoConfiguration {
 
     public static class AutoConfiguredBeanScannerRegistrar
         implements BeanFactoryAware, ImportBeanDefinitionRegistrar, ResourceLoaderAware {
-
-        private BeanFactory beanFactory;
 
         private ResourceLoader resourceLoader;
 
@@ -59,7 +62,6 @@ public class NeteaseApiAutoConfiguration {
         }
 
         public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-            this.beanFactory = beanFactory;
         }
 
         public void setResourceLoader(ResourceLoader resourceLoader) {
@@ -67,7 +69,7 @@ public class NeteaseApiAutoConfiguration {
         }
     }
 
-
+    @Configuration
     @Import({AutoConfiguredBeanScannerRegistrar.class})
     public static class BeanScannerRegistrarNotFoundConfiguration {
 
@@ -76,4 +78,5 @@ public class NeteaseApiAutoConfiguration {
             logger.debug("No Bean found.");
         }
     }
+
 }

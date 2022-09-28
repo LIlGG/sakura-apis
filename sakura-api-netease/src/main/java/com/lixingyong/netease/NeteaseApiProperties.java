@@ -12,13 +12,13 @@ public class NeteaseApiProperties {
     /**
      * 网易云音乐 NodeJS 版本地址
      */
-    private String neteaseCloudMusicApiHost;
+    private String upstreamHost;
 
-    public String getNeteaseCloudMusicApiHost() {
-        return neteaseCloudMusicApiHost;
+    public String getUpstreamHost() {
+        return upstreamHost;
     }
 
-    public void setNeteaseCloudMusicApiHost(String neteaseCloudMusicApiHost) {
-        this.neteaseCloudMusicApiHost = neteaseCloudMusicApiHost;
+    public void setUpstreamHost(String upstreamHost) {
+        this.upstreamHost = upstreamHost;
     }
 }

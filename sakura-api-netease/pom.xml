@@ -15,7 +15,19 @@
 
     <description>API 模块 -- 网易云音乐（基于 NodeJS 版本 API 封装）</description>
 
+    <properties>
+        <spring.version>5.3.14</spring.version>
+        <servlet.version>4.0.1</servlet.version>
+    </properties>
+
     <dependencies>
+        <dependency>
+            <groupId>com.lixingyong</groupId>
+            <artifactId>sakura-api-common</artifactId>
+            <scope>compile</scope>
+            <version>${project.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
@@ -29,8 +41,28 @@
         </dependency>
 
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.70</version>
         </dependency>
     </dependencies>
 </project>
