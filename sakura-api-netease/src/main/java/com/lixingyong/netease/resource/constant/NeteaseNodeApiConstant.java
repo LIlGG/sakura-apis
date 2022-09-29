@@ -69,19 +69,28 @@ public class NeteaseNodeApiConstant {
      */
     public final static String LOGIN_QR_CHECK = "/login/qr/check";
     /**
-     * 发送验证码
+     * 手机登录 - 发送验证码
      */
     public final static String CAPTCHA_SEND = "/captcha/sent";
     /**
-     * 验证验证码
+     * 手机登录 - 验证验证码
      */
     public final static String CAPTCHA_VERIFY = "/captcha/verify";
     /**
-     * 获取登录状态
+     * 检查登录状态
      */
     public final static String LOGIN_STATUS = "/login/status";
     /**
      * 获取用户详情
      */
     public final static String USER_DETAIL = "/user/detail";
+    /**
+     * 刷新登录，重新获取 cookie(不支持刷新二维码登录的cookie)
+     */
+    public final static String LOGIN_REFRESH = "/login/refresh";
+    /**
+     * 游客登录 - 匿名
+     */
+    public final static String LOGIN_ANONYMOUS = "/register/anonimous";
+
 }

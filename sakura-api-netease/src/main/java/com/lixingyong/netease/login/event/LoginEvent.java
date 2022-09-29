@@ -1,4 +1,4 @@
-package com.lixingyong.netease.event;
+package com.lixingyong.netease.login.event;
 
 import org.springframework.context.ApplicationEvent;
 
