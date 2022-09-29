@@ -1,9 +1,11 @@
 package com.lixingyong.netease.controller;
 
 import com.lixingyong.netease.model.entity.AudioEntity;
+import com.lixingyong.netease.model.entity.SearchEntity;
 import com.lixingyong.netease.model.enums.FormatProcessType;
 import com.lixingyong.netease.model.param.BaseParam;
 import com.lixingyong.netease.model.param.IdParam;
+import com.lixingyong.netease.model.param.SearchListParam;
 import com.lixingyong.netease.process.FormatProcess;
 import com.lixingyong.netease.process.FormatProcessFactory;
 import com.lixingyong.netease.resource.NeteaseNodeJs;
@@ -63,5 +65,16 @@ public class NeteaseApiController<PARAMS extends BaseParam> {
         List<AudioEntity> audios = apiService.playlistAudio(idParam.getId());
         FormatProcess formatProcess = FormatProcessFactory.getFormatProcess(idParam.getRType());
         return (List<?>) formatProcess.process(audios, request.getRequestURL().toString());
+    }
+
+    /**
+     * 获取搜索列表下搜索到的音频
+     */
+    @GetMapping(params={ "type=search" })
+    @ApiOperation("搜索功能")
+    public List<?> search(@Valid SearchListParam params, HttpServletRequest request) {
+        SearchEntity<?> search = apiService.search(params);
+        FormatProcess formatProcess = FormatProcessFactory.getFormatProcess(params.getRType());
+        return (List<?>) formatProcess.process(search, request.getRequestURL().toString());
     }
 }

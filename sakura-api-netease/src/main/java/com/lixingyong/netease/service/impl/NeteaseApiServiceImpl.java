@@ -1,5 +1,11 @@
 package com.lixingyong.netease.service.impl;
 
+import com.lixingyong.netease.model.entity.SearchEntity;
+import com.lixingyong.netease.model.enums.SearchParamType;
+import com.lixingyong.netease.model.param.SearchListParam;
+import com.lixingyong.netease.process.SearchConvertProcess;
+import com.lixingyong.netease.resource.model.entity.search.SearchList;
+import com.lixingyong.netease.resource.model.params.SearchParam;
 import com.lixingyong.netease.utils.NeteaseException;
 import com.lixingyong.netease.model.entity.AudioEntity;
 import com.lixingyong.netease.resource.NeteaseNodeJs;
@@ -11,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import utils.ValueEnum;
 
 /**
  * 网易云 API 服务实现类
@@ -66,5 +73,19 @@ public class NeteaseApiServiceImpl implements NeteaseApiService {
     @Override
     public String audioLrc(Long audioId) {
         return resource.getLyric(audioId).getLyric();
+    }
+
+    @Override
+    public SearchEntity<?> search(SearchListParam params) {
+        SearchParamType searchParamType
+            = ValueEnum.valueToEnum(SearchParamType.class, params.getSearchType());
+        SearchParam searchParam = SearchParam.builder()
+            .keywords(params.getId())
+            .type(searchParamType.getSearchType())
+            .limit(params.getLimit())
+            .offset(params.getOffset())
+            .build();
+        SearchList searchList = resource.search(searchParam);
+        return SearchConvertProcess.convertSearch(searchList);
     }
 }

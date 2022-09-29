@@ -1,8 +1,10 @@
 package com.lixingyong.netease.model.entity;
 
+import com.lixingyong.netease.resource.model.entity.playlist.PlayList;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 /**
  * 歌单实体
@@ -33,4 +35,12 @@ public class PlaylistEntity extends BaseEntity {
      * 歌单歌曲数量
      */
     private int trackCount;
+
+    public static PlaylistEntity getPlaylist(PlayList playList) {
+        PlaylistEntity playlistEntity = new PlaylistEntity();
+        BeanUtils.copyProperties(playList, playlistEntity);
+        playlistEntity.setCreator(playList.getCreator().getNickname());
+        playlistEntity.setTrackCount(playList.getTrackCount());
+        return playlistEntity;
+    }
 }

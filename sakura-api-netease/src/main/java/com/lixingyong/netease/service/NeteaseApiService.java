@@ -1,6 +1,8 @@
 package com.lixingyong.netease.service;
 
 import com.lixingyong.netease.model.entity.AudioEntity;
+import com.lixingyong.netease.model.entity.SearchEntity;
+import com.lixingyong.netease.model.param.SearchListParam;
 import java.util.List;
 import org.springframework.lang.Nullable;
 
@@ -70,4 +72,12 @@ public interface NeteaseApiService {
      * @return 音频歌词
      */
     String audioLrc(Long audioId);
+
+    /**
+     * 网易云音乐搜索功能
+     *
+     * @param params 搜索入参
+     * @return 搜索到的列表
+     */
+    SearchEntity<?> search(SearchListParam params);
 }
