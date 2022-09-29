@@ -4,6 +4,7 @@ import com.lixingyong.netease.model.entity.SearchEntity;
 import com.lixingyong.netease.model.enums.SearchParamType;
 import com.lixingyong.netease.model.param.SearchListParam;
 import com.lixingyong.netease.process.SearchConvertProcess;
+import com.lixingyong.netease.resource.model.entity.music.Music;
 import com.lixingyong.netease.resource.model.entity.search.SearchList;
 import com.lixingyong.netease.resource.model.params.SearchParam;
 import com.lixingyong.netease.utils.NeteaseException;
@@ -52,12 +53,11 @@ public class NeteaseApiServiceImpl implements NeteaseApiService {
 
     @Override
     public String audioUrl(Long audioId) {
-        // 使用查询到的 track 编号，获取歌曲详细信息
-        List<Song> songs = resource.songByMusicId(Collections.singleton(audioId));
-        if (CollectionUtils.isEmpty(songs)) {
+        List<Music> musics = resource.getMusicUrl(Collections.singleton(audioId));
+        if (CollectionUtils.isEmpty(musics)) {
             throw new NeteaseException("未获取到歌曲播放链接");
         }
-        return songs.get(0).getAl().getPicUrl();
+        return musics.get(0).getUrl();
     }
 
     @Override

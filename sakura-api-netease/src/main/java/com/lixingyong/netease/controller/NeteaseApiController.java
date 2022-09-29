@@ -2,21 +2,23 @@ package com.lixingyong.netease.controller;
 
 import com.lixingyong.netease.model.entity.AudioEntity;
 import com.lixingyong.netease.model.entity.SearchEntity;
-import com.lixingyong.netease.model.enums.FormatProcessType;
 import com.lixingyong.netease.model.param.BaseParam;
 import com.lixingyong.netease.model.param.IdParam;
 import com.lixingyong.netease.model.param.SearchListParam;
 import com.lixingyong.netease.process.FormatProcess;
 import com.lixingyong.netease.process.FormatProcessFactory;
-import com.lixingyong.netease.resource.NeteaseNodeJs;
 import com.lixingyong.netease.service.NeteaseApiService;
+import com.lixingyong.netease.utils.NeteaseException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.io.IOException;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -72,9 +74,68 @@ public class NeteaseApiController<PARAMS extends BaseParam> {
      */
     @GetMapping(params={ "type=search" })
     @ApiOperation("搜索功能")
-    public List<?> search(@Valid SearchListParam params, HttpServletRequest request) {
+    public List<?> search(@Valid SearchListParam params) {
         SearchEntity<?> search = apiService.search(params);
         FormatProcess formatProcess = FormatProcessFactory.getFormatProcess(params.getRType());
         return (List<?>) formatProcess.process(search, request.getRequestURL().toString());
+    }
+
+    /**
+     * 根据歌曲链接获取实际歌曲
+     *
+     * @param param param
+     */
+    @GetMapping(params={ "type=url" })
+    @ApiOperation("获取歌曲播放链接")
+    public void url(@Valid IdParam param, HttpServletResponse response) {
+        String audioUrl = apiService.audioUrl(param.getId());
+        if (!StringUtils.hasLength(audioUrl)) {
+            throw new NeteaseException("获取歌曲播放链接失败");
+        }
+        try {
+            response.sendRedirect(audioUrl);
+        } catch (IOException e) {
+            e.printStackTrace();
+            logger.error("audio sendRedirect error. id: {}, audioUrl: {}", param.getId(), audioUrl);
+        }
+    }
+
+    /**
+     * 获取歌曲封面
+     */
+    @GetMapping(params={ "type=pic" })
+    @ApiOperation("获取歌曲封面")
+    public void pic(@Valid IdParam param, HttpServletResponse response) {
+        String audioPic = apiService.audioPic(param.getId());
+        if (!StringUtils.hasLength(audioPic)) {
+            throw new NeteaseException("获取歌曲封面失败");
+        }
+        try {
+            response.sendRedirect(audioPic);
+        } catch (IOException e) {
+            e.printStackTrace();
+            logger.error("audio pic sendRedirect error. id: {}, audioPic: {}", param.getId(), audioPic);
+        }
+    }
+
+    /**
+     * 获取歌词
+     */
+    @GetMapping(params={ "type=lrc" })
+    @ApiOperation("获取歌词")
+    public String lrc(@Valid IdParam param) {
+        return apiService.audioLrc(param.getId());
+    }
+
+    /**
+     * 默认功能设置为搜索
+     *
+     * <p>默认搜索时，参数为 hello</p>
+     *
+     * @see SearchListParam
+     */
+    @GetMapping
+    public List<?> defaultAudio(@Valid SearchListParam params) {
+        return search(params);
     }
 }

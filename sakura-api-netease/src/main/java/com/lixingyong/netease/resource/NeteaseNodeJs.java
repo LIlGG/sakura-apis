@@ -230,7 +230,7 @@ public class NeteaseNodeJs {
         String idsStr = ids.stream().map(String::valueOf).collect(Collectors.joining(","));
         RequestItem requestItem = RequestItem
             .newBuilder(cloudHost + NeteaseNodeApiConstant.AUDIO_URL)
-            .form("ids", idsStr).build();
+            .form("id", idsStr).build();
         HttpResponse<String> response = httpRequestUtil
             .sendAsync(requestItem, HttpResponse.BodyHandlers.ofString())
             .join();
