@@ -30,7 +30,7 @@
 
         <dependency>
             <groupId>com.lixingyong</groupId>
-            <artifactId>sakura-api-netease</artifactId>
+            <artifactId>sakura-api-music</artifactId>
             <version>${project.version}</version>
         </dependency>
 

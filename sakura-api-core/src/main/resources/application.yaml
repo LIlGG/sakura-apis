@@ -1,3 +1,4 @@
 api:
-  netease:
-    upstream-host: http://127.0.0.1:3000/
+  music:
+    netease:
+      upstream-host: http://127.0.0.1:3000/
