@@ -1,6 +1,6 @@
 package com.lixingyong.music.model.enums;
 
-import utils.ValueEnum;
+import com.lixingyong.common.utils.ValueEnum;
 
 /**
  * 音乐请求时所支持内容类型

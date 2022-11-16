@@ -32,8 +32,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import org.springframework.util.StringUtils;
-import utils.HttpRequestUtil;
-import utils.RequestItem;
+import com.lixingyong.common.utils.HttpRequestUtil;
+import com.lixingyong.common.utils.RequestItem;
 
 /**
  * 通过网易云 API 接口，获取网易云音乐列表，此方法仅实现调用网易云 API，不做其他任何处理。接口如下所示

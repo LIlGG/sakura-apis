@@ -8,7 +8,7 @@ import com.lixingyong.music.server.netease.resource.model.entity.search.SearchLi
 import com.lixingyong.music.server.netease.resource.model.entity.search.SongSearchList;
 import com.lixingyong.music.utils.MusicApiException;
 import java.util.stream.Stream;
-import utils.ValueEnum;
+import com.lixingyong.common.utils.ValueEnum;
 
 /**
  * 搜索功能类型，目前仅支持一部分实现搜索

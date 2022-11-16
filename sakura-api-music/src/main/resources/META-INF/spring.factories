@@ -1,3 +1,5 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.lixingyong.music.MusicAutoConfiguration
+com.lixingyong.common.autoconfigure.module.EnableModuleAutoConfiguration=\
+com.lixingyong.music.server.netease.NeteaseHttpConfiguration

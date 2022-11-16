@@ -1,6 +1,6 @@
 package com.lixingyong.music.server.netease.resource.model.enums;
 
-import utils.ValueEnum;
+import com.lixingyong.common.utils.ValueEnum;
 
 /**
  * 网易云音乐请求状态

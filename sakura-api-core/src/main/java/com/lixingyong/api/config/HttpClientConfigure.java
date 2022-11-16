@@ -1,14 +1,12 @@
 package com.lixingyong.api.config;
 
-import java.net.InetSocketAddress;
 import java.net.ProxySelector;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.time.Duration;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  *
@@ -19,7 +17,7 @@ import org.springframework.context.annotation.Bean;
  * @author LIlGG
  * @since 2022-09-27
  */
-@Configurable
+@Configuration
 @ConditionalOnWebApplication
 public class HttpClientConfigure {
     /**

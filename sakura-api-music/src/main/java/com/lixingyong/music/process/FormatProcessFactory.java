@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import lombok.SneakyThrows;
-import utils.ValueEnum;
+import com.lixingyong.common.utils.ValueEnum;
 
 /**
  * @author LIlGG

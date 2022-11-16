@@ -12,6 +12,7 @@
         <module>sakura-api-core</module>
         <module>sakura-api-common</module>
         <module>sakura-api-music</module>
+        <module>sakura-api-images</module>
     </modules>
 
     <description>Halo Sakura 主题内置 API 开源聚合库</description>

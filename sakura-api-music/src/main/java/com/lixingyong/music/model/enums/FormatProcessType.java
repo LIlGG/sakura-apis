@@ -2,7 +2,7 @@ package com.lixingyong.music.model.enums;
 
 import com.lixingyong.music.process.FormatProcess;
 import com.lixingyong.music.process.APlayerFormatProcess;
-import utils.ValueEnum;
+import com.lixingyong.common.utils.ValueEnum;
 
 /**
  * 歌曲返回值格式处理器类型

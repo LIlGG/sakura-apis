@@ -1,10 +1,11 @@
 package com.lixingyong.music.model.param;
 
+import com.lixingyong.common.autoconfigure.param.ServerParam;
 import com.lixingyong.music.model.enums.ApiRequestContentType;
 import com.lixingyong.music.model.enums.FormatProcessType;
-import com.lixingyong.music.model.enums.ServerType;
 import lombok.Data;
-import validator.EnumValid;
+import com.lixingyong.common.validator.EnumValid;
+import lombok.EqualsAndHashCode;
 
 /**
  * 请求参数超类
@@ -22,14 +23,8 @@ import validator.EnumValid;
  * @since 2021/7/28
  */
 @Data
-public abstract class BaseParam {
-
-    /**
-     * 服务类型
-     */
-    @EnumValid(message = "不存在当前服务", target = ServerType.class)
-    private String server = ServerType.NETEASE.getServerName();
-
+@EqualsAndHashCode(callSuper = true)
+public abstract class BaseParam extends ServerParam {
     /**
      * 请求类型
      */

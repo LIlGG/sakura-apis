@@ -1,6 +1,6 @@
 package com.lixingyong.music.model.enums;
 
-import utils.ValueEnum;
+import com.lixingyong.common.utils.ValueEnum;
 
 /**
  * 搜索功能所支持的类型

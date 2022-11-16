@@ -1,5 +1,6 @@
 package com.lixingyong.music.server.netease.service;
 
+import com.lixingyong.common.autoconfigure.service.ApiService;
 import com.lixingyong.music.model.entity.AudioEntity;
 import com.lixingyong.music.model.entity.SearchEntity;
 import com.lixingyong.music.model.enums.SearchParamType;
@@ -18,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.util.CollectionUtils;
-import utils.ValueEnum;
+import com.lixingyong.common.utils.ValueEnum;
 
 /**
  * 网易云 API 服务实现类
@@ -26,6 +27,7 @@ import utils.ValueEnum;
  * @author LIlGG
  * @since 2022-09-27
  */
+@ApiService
 public class NeteaseApiServiceImpl implements MusicApiService {
 
     private final NeteaseNodeJs resource;

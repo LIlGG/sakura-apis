@@ -4,7 +4,7 @@ import com.alibaba.fastjson.parser.DefaultJSONParser;
 import com.alibaba.fastjson.serializer.*;
 import com.lixingyong.music.server.netease.resource.model.enums.SearchType;
 import java.lang.reflect.Type;
-import utils.ValueEnum;
+import com.lixingyong.common.utils.ValueEnum;
 
 /**
  * @author LIlGG

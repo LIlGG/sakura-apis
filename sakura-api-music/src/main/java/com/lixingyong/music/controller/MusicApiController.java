@@ -1,6 +1,6 @@
 package com.lixingyong.music.controller;
 
-import com.lixingyong.music.model.enums.ServerType;
+import com.lixingyong.common.autoconfigure.ApiApplicationContext;
 import com.lixingyong.music.model.entity.AudioEntity;
 import com.lixingyong.music.model.entity.SearchEntity;
 import com.lixingyong.music.model.param.BaseParam;
@@ -19,13 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
-import org.springframework.context.ApplicationContext;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import utils.ValueEnum;
 
 /**
  * 音乐接口，使用此控制层将根据请求条件获取各种服务的音乐并按要求返回特定数据<br><br>
@@ -58,9 +55,10 @@ public class MusicApiController<PARAMS extends BaseParam> {
      */
     private final HttpServletRequest request;
 
-    private final ApplicationContext applicationContext;
+    private final ApiApplicationContext applicationContext;
 
-    public MusicApiController(HttpServletRequest request, ApplicationContext applicationContext) {
+    public MusicApiController(HttpServletRequest request,
+                              ApiApplicationContext applicationContext) {
         this.request = request;
         this.applicationContext = applicationContext;
     }
@@ -68,7 +66,7 @@ public class MusicApiController<PARAMS extends BaseParam> {
     @GetMapping(params={ "type=playlist" })
     @ApiOperation("获取歌单列表下的音乐")
     public List<?> getPlaylist(@Valid IdParam idParam) {
-        List<AudioEntity> audios = getServerBean(idParam).playlistAudio(idParam.getId());
+        List<AudioEntity> audios = applicationContext.getServiceBean(MusicApiService.class).playlistAudio(idParam.getId());
         FormatProcess formatProcess = FormatProcessFactory.getFormatProcess(idParam.getRType());
         return (List<?>) formatProcess.process(audios, request.getRequestURL().toString(), idParam.getServer());
     }
@@ -79,7 +77,7 @@ public class MusicApiController<PARAMS extends BaseParam> {
     @GetMapping(params={ "type=search" })
     @ApiOperation("搜索功能")
     public List<?> search(@Valid SearchListParam params) {
-        SearchEntity<?> search = getServerBean(params).search(params);
+        SearchEntity<?> search = applicationContext.getServiceBean(MusicApiService.class).search(params);
         FormatProcess formatProcess = FormatProcessFactory.getFormatProcess(params.getRType());
         return (List<?>) formatProcess.process(search, request.getRequestURL().toString(), params.getServer());
     }
@@ -92,7 +90,7 @@ public class MusicApiController<PARAMS extends BaseParam> {
     @GetMapping(params={ "type=url" })
     @ApiOperation("获取歌曲播放链接")
     public void url(@Valid IdParam param, HttpServletResponse response) {
-        String audioUrl = getServerBean(param).audioUrl(param.getId());
+        String audioUrl = applicationContext.getServiceBean(MusicApiService.class).audioUrl(param.getId());
         if (!StringUtils.hasLength(audioUrl)) {
             throw new MusicApiException("获取歌曲播放链接失败");
         }
@@ -110,7 +108,7 @@ public class MusicApiController<PARAMS extends BaseParam> {
     @GetMapping(params={ "type=pic" })
     @ApiOperation("获取歌曲封面")
     public void pic(@Valid IdParam param, HttpServletResponse response) {
-        String audioPic = getServerBean(param).audioPic(param.getId());
+        String audioPic = applicationContext.getServiceBean(MusicApiService.class).audioPic(param.getId());
         if (!StringUtils.hasLength(audioPic)) {
             throw new MusicApiException("获取歌曲封面失败");
         }
@@ -128,7 +126,7 @@ public class MusicApiController<PARAMS extends BaseParam> {
     @GetMapping(params={ "type=lrc" })
     @ApiOperation("获取歌词")
     public String lrc(@Valid IdParam param) {
-        return getServerBean(param).audioLrc(param.getId());
+        return applicationContext.getServiceBean(MusicApiService.class).audioLrc(param.getId());
     }
 
     /**
@@ -141,14 +139,5 @@ public class MusicApiController<PARAMS extends BaseParam> {
     @GetMapping
     public List<?> defaultAudio(@Valid SearchListParam params) {
         return search(params);
-    }
-
-    private MusicApiService getServerBean(BaseParam baseParam) {
-        ServerType serverType = ValueEnum.valueToEnum(ServerType.class, baseParam.getServer());
-        try {
-           return applicationContext.getBean(serverType.getServerClass());
-        } catch (NoSuchBeanDefinitionException e) {
-            throw new MusicApiException("未找到" + baseParam.getServer() + "服务");
-        }
     }
 }

@@ -4,7 +4,7 @@ import com.lixingyong.music.model.enums.SearchParamType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import validator.EnumValid;
+import com.lixingyong.common.validator.EnumValid;
 
 /**
  * @author LIlGG
